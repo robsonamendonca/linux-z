@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux-Z | O Analisador de Hardware para Linux</title>
+    <meta name="description"
+        content="Linux-Z é um analisador de hardware de código aberto que ajuda você a escolher a melhor distribuição Linux para sua máquina.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="dark-mode">
+    <header>
+        <nav class="container glass">
+            <div class="logo">
+                <i class="fa-solid fa-microchip"></i>
+                <span>Linux-Z</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav.features">Funcionalidades</a>
+                <a href="#how-to" data-i18n="nav.howto">Como Usar</a>
+                <a href="#contribute" data-i18n="nav.contribute">Contribuir</a>
+            </div>
+            <div class="lang-switch">
+                <button id="btn-pt" class="active">PT</button>
+                <button id="btn-en">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <div class="hero-content">
+                <h1 data-i18n="hero.title">Otimize seu Linux com <span>Hardware Precision</span></h1>
+                <p data-i18n="hero.subtitle">Linux-Z analisa sua CPU, RAM e GPU para recomendar a distribuição perfeita
+                    para o seu desempenho.</p>
+                <div class="hero-btns">
+                    <a href="https://github.com/robsonamendonca/linux-z" class="btn btn-primary" target="_blank">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="#features" class="btn btn-secondary" data-i18n="hero.btn_learn">Saiba Mais</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="glass-card floating">
+                    <pre><code>$ linux-z --analyze
+Analyzing Hardware...
+CPU: AMD Ryzen 5 5600X
+RAM: 16GB DDR4
+GPU: NVIDIA RTX 3060
+Score: 11.5 / 12
+Recommendation: Pop!_OS</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features container">
+            <h2 class="section-title" data-i18n="features.title">Funcionalidades Premium</h2>
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <h3 data-i18n="features.f1.title">Detecção Avançada</h3>
+                    <p data-i18n="features.f1.desc">Identifica CPU, núcleos, threads, RAM, Armazenamento e GPU com
+                        precisão cirúrgica.</p>
+                </div>
+                <div class="feature-card glass">
+                    <i class="fa-solid fa-star"></i>
+                    <h3 data-i18n="features.f2.title">Pontuação Inteligente</h3>
+                    <p data-i18n="features.f2.desc">Calcula uma pontuação de 0 a 12 baseada na performance real do seu
+                        hardware.</p>
+                </div>
+                <div class="feature-card glass">
+                    <i class="fa-solid fa-penguin"></i>
+                    <h3 data-i18n="features.f3.title">Recomendações</h3>
+                    <p data-i18n="features.f3.desc">Sugestões personalizadas de distros leves, gamer ou focadas em
+                        desenvolvimento.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to" class="how-to container">
+            <h2 class="section-title" data-i18n="howto.title">Escolha sua interface</h2>
+            <div class="how-to-grid">
+                <div class="how-to-card glass">
+                    <h3>CLI <span class="badge">Power User</span></h3>
+                    <p data-i18n="howto.cli.desc">Interface de terminal elegante alimentada pela biblioteca Rich.</p>
+                    <code>python cli/linuxz_cli.py</code>
+                    <div class="requirements">
+                        <p><i class="fa-solid fa-check"></i> Python 3.8+</p>
+                    </div>
+                </div>
+                <div class="how-to-card glass">
+                    <h3>Web <span class="badge">Dashboard</span></h3>
+                    <p data-i18n="howto.web.desc">Painel moderno com modo escuro e design glassmorphism.</p>
+                    <code>python backend/app.py</code>
+                    <div class="requirements">
+                        <p><i class="fa-solid fa-check"></i> Flask / Modern Browser</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contribute" class="contribute container">
+            <div class="contribute-card glass">
+                <h2 data-i18n="contribute.title">Como Contribuir</h2>
+                <p data-i18n="contribute.desc">O Linux-Z é um projeto comunitário. Sua ajuda é fundamental para
+                    mantermos o banco de dados de distros atualizado!</p>
+
+                <div class="contribute-options">
+                    <div class="option">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <h4 data-i18n="contribute.opt1.title">Código & Backend</h4>
+                        <p data-i18n="contribute.opt1.desc">Melhore o algoritmo de detecção ou adicione suporte a novos
+                            hardwares.</p>
+                    </div>
+                    <div class="option">
+                        <i class="fa-solid fa-database"></i>
+                        <h4 data-i18n="contribute.opt2.title">Banco de Distros</h4>
+                        <p data-i18n="contribute.opt2.desc">Atualize o arquivo distros.json com os requisitos mais
+                            recentes.</p>
+                    </div>
+                    <div class="option">
+                        <i class="fa-solid fa-language"></i>
+                        <h4 data-i18n="contribute.opt3.title">Traduções</h4>
+                        <p data-i18n="contribute.opt3.desc">Ajude-nos a levar o Linux-Z para mais idiomas ao redor do
+                            mundo.</p>
+                    </div>
+                </div>
+
+                <div class="contribute-steps">
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <p data-i18n="contribute.step1">Fork no GitHub</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <p data-i18n="contribute.step2">Feature Branch</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <p data-i18n="contribute.step3">Pull Request</p>
+                    </div>
+                </div>
+
+                <div class="engagement-btns">
+                    <a href="https://github.com/robsonamendonca/linux-z/issues" class="btn btn-primary" target="_blank">
+                        <i class="fa-solid fa-circle-exclamation"></i> <span data-i18n="contribute.btn_issues">Ver
+                            Issues</span>
+                    </a>
+                    <a href="https://github.com/robsonamendonca/linux-z/stargazers" class="btn btn-secondary"
+                        target="_blank">
+                        <i class="fa-solid fa-star"></i> <span data-i18n="contribute.btn_star">Dar uma Estrela</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <div class="footer-content">
+            <div class="footer-info">
+                <div class="logo">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>Linux-Z</span>
+                </div>
+                <p data-i18n="footer.about">Analisador de hardware open source inspirado no CPU-Z para a comunidade
+                    Linux.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4 data-i18n="footer.links.title">Projeto</h4>
+                    <a href="https://github.com/robsonamendonca/linux-z">GitHub</a>
+                    <a href="https://github.com/robsonamendonca/linux-z/releases">Releases</a>
+                    <a href="LICENSE">License</a>
+                </div>
+                <div class="link-group">
+                    <h4 data-i18n="footer.comm.title">Comunidade</h4>
+                    <a href="https://github.com/robsonamendonca/linux-z/issues">Issues</a>
+                    <a href="https://github.com/robsonamendonca/linux-z/pulls">Pull Requests</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Linux-Z | Desenvolvido com <i class="fa-solid fa-heart" style="color: var(--accent);"></i> pela
+                Comunidade</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
