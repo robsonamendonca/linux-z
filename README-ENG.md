@@ -33,6 +33,16 @@ Whether you're looking for a lightweight distro for an old machine or a powerful
    ```
 
 2. **Install dependencies**:
+
+   On Windows (PowerShell):
+   ```powershell
+   python -m pip install -r backend/requirements.txt
+   ```
+   On Debian/Ubuntu and modern Linux distributions that follow the [PEP 668](https://peps.python.org/pep-0668) standard:
+   ```bash
+   pip install --break-system-packages -r backend/requirements.txt
+   ```
+   On other Linux distributions/macOS:
    ```bash
    pip install -r backend/requirements.txt
    ```
