@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body data-theme="dark">
+
+    <div class="cpuz-window">
+        <div class="cpuz-header">
+            <h1>Linux-Z v1.0</h1>
+            <div class="lang-switcher-inline">
+                <a href="/pt" class="lang-btn-small {{ 'active' if current_lang == 'pt' else '' }}">PT</a>
+                <a href="/en" class="lang-btn-small {{ 'active' if current_lang == 'en' else '' }}">EN</a>
+                <span style="margin-left:5px; cursor:pointer">&times;</span>
+            </div>
+        </div>
+
+        <div class="cpuz-tabs">
+            <div class="tab active" onclick="openTab(event, 'CPU')">CPU</div>
+            <div class="tab" onclick="openTab(event, 'Memory')">{{ t.memory }}</div>
+            <div class="tab" onclick="openTab(event, 'Graphics')">{{ t.graphics }}</div>
+            <div class="tab" onclick="openTab(event, 'Bench')">Score</div>
+            <div class="tab" onclick="openTab(event, 'Linux')">Linux</div>
+        </div>
+
+        <div class="cpuz-content">
+            <!-- CPU TAB -->
+            <div id="CPU" class="tab-pane active">
+                <fieldset>
+                    <legend>{{ t.processor }}</legend>
+                    <div class="logo-section">
+                        <div class="cpu-logo">🐧</div>
+                        <div style="flex:1">
+                            <div class="info-row">
+                                <div class="info-label">Name</div>
+                                <div class="info-value">{{ system.cpu.model }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Clocks (Core #0)</legend>
+                    <div class="info-row">
+                        <div class="info-label">Frequency</div>
+                        <div class="info-value">{{ system.cpu.frequency or 'N/A' }} MHz</div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Selection</legend>
+                    <div class="info-row">
+                        <div class="info-label">Cores</div>
+                        <div class="info-value">{{ system.cpu.cores }}</div>
+                        <div class="info-label" style="text-align:right; padding-right:5px">Threads</div>
+                        <div class="info-value">{{ system.cpu.threads }}</div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!-- MEMORY TAB -->
+            <div id="Memory" class="tab-pane">
+                <fieldset>
+                    <legend>General</legend>
+                    <div class="info-row">
+                        <div class="info-label">Type</div>
+                        <div class="info-value">RAM</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Size</div>
+                        <div class="info-value">{{ system.ram.total_gb }} GBytes</div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Timings</legend>
+                    <div class="info-row">
+                        <div class="info-label">{{ t.available }}</div>
+                        <div class="info-value">{{ system.ram.available_gb }} GBytes</div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!-- GRAPHICS TAB -->
+            <div id="Graphics" class="tab-pane">
+                <fieldset>
+                    <legend>Display Device Selection</legend>
+                    <div class="info-row">
+                        <div class="info-value">{{ system.gpu }}</div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Storage</legend>
+                    <div class="info-row">
+                        <div class="info-label">Type</div>
+                        <div class="info-value">{{ 'SSD' if system.disk.is_ssd else 'HDD' }}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">{{ t.total }}</div>
+                        <div class="info-value">{{ system.disk.total_gb }} GBytes</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">{{ t.free }}</div>
+                        <div class="info-value">{{ system.disk.free_gb }} GBytes</div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!-- BENCH TAB -->
+            <div id="Bench" class="tab-pane">
+                <fieldset>
+                    <legend>{{ t.performance_score }}</legend>
+                    <div style="text-align:center; padding: 20px;">
+                        <h2 style="font-size:48px">{{ score }}</h2>
+                        <p>{{ t.based_on }}</p>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Details</legend>
+                    <div class="info-row">
+                        <div class="info-label">{{ t.architecture }}</div>
+                        <div class="info-value">{{ system.arch }}</div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!-- LINUX TAB -->
+            <div id="Linux" class="tab-pane">
+                <fieldset>
+                    <legend>{{ t.recommended }}</legend>
+                    <div style="padding: 10px;">
+                        {% for distro in distros %}
+                        <div class="info-row" style="margin-bottom:10px">
+                            <div class="info-value" style="font-weight:bold">🐧 {{ distro }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="decoration-btns">
+                <div class="cpuz-btn" onclick="openAbout()">Sobre</div>
+            </div>
+            <div class="decoration-btns">
+                <div class="cpuz-btn" onclick="toggleTheme()">Theme</div>
+                <div class="cpuz-btn">Close</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <h2>Linux-Z v1.0</h2>
+            <p><strong>{{ t.subtitle }}</strong></p>
+            <p>Versão: 1.0.0-Stable</p>
+            <p>Autor: Robson A. Mendonça</p>
+            <div class="cpuz-btn" style="margin-top:15px; display:inline-block" onclick="closeAbout()">OK</div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-pane");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function openAbout() {
+            document.getElementById("aboutModal").style.display = "block";
+        }
+
+        function closeAbout() {
+            document.getElementById("aboutModal").style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            let modal = document.getElementById("aboutModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

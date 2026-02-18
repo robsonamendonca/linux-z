@@ -1,0 +1,74 @@
+name: Release & Versioning
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install semver
+
+      - name: Determine Next Version
+        id: versioning
+        run: |
+          # Simple versioning logic: get last tag or start at 1.0.0
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.9.0")
+          echo "Last tag: $LAST_TAG"
+          
+          # Basic increment (could be improved with commit message analysis)
+          VERSION=$(echo $LAST_TAG | sed 's/v//')
+          # Example incrementing minor version
+          NEXT_VERSION="v$(python -c "import semver; print(semver.VersionInfo.parse('$VERSION').bump_minor())")"
+          echo "Next version: $NEXT_VERSION"
+          echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate Version Badge
+        run: |
+          VERSION_TAG=${{ steps.versioning.outputs.version }}
+          # Create a simple JSON for Shields.io or update README directly
+          # Here we update README.md with a Shields.io badge
+          sed -i "s|img.shields.io/badge/version-.*-blue|img.shields.io/badge/version-${VERSION_TAG}-blue|g" README.md
+          # If badge doesn't exist, prepend it
+          if ! grep -q "img.shields.io/badge/version-" README.md; then
+            echo "[![Version](https://img.shields.io/badge/version-${VERSION_TAG}-blue)](https://github.com/${{ github.repository }}/releases)" | cat - README.md > temp && mv temp README.md
+          fi
+
+      - name: Commit Badge Update
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "docs: update version badge to ${{ steps.versioning.outputs.version }} [skip ci]" || echo "No changes to commit"
+          git push origin main
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.versioning.outputs.version }}
+          name: Release ${{ steps.versioning.outputs.version }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

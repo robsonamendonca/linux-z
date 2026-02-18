@@ -1,0 +1,59 @@
+[
+    {
+        "name": "Puppy Linux",
+        "category": "Lightweight",
+        "min_ram_gb": 0.5,
+        "min_cores": 1,
+        "ssd_recommended": false,
+        "description": "Perfect for ultra-low spec hardware and older machines."
+    },
+    {
+        "name": "AntiX",
+        "category": "Lightweight",
+        "min_ram_gb": 1,
+        "min_cores": 1,
+        "ssd_recommended": false,
+        "description": "Fast, lightweight and easy to install on old computers."
+    },
+    {
+        "name": "MX Linux",
+        "category": "Midweight",
+        "min_ram_gb": 4,
+        "min_cores": 2,
+        "ssd_recommended": true,
+        "description": "A stable, user-friendly distro with great hardware support."
+    },
+    {
+        "name": "Linux Mint",
+        "category": "Daily Driver",
+        "min_ram_gb": 4,
+        "min_cores": 2,
+        "ssd_recommended": true,
+        "description": "One of the most popular and easy-to-use distros for beginners."
+    },
+    {
+        "name": "Pop!_OS",
+        "category": "Gamer/Dev",
+        "min_ram_gb": 8,
+        "min_cores": 4,
+        "ssd_recommended": true,
+        "gpu_required": "NVIDIA",
+        "description": "Excellent for gaming and productivity, specially for NVIDIA users."
+    },
+    {
+        "name": "Ubuntu",
+        "category": "Standard",
+        "min_ram_gb": 4,
+        "min_cores": 2,
+        "ssd_recommended": true,
+        "description": "The most famous Linux distro, great for all-around use."
+    },
+    {
+        "name": "Fedora Workstation",
+        "category": "Cutting Edge",
+        "min_ram_gb": 8,
+        "min_cores": 4,
+        "ssd_recommended": true,
+        "description": "Modern, stable and focused on the latest open-source features."
+    }
+]
