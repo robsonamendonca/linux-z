@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-v0.11.0-blue)](https://github.com/robsonamendonca/linux-z/releases)
+[![Version](https://img.shields.io/badge/version-v0.13.0-blue)](https://github.com/robsonamendonca/linux-z/releases)
 # 🐧 Linux-Z
 
 **Linux-Z** é um analisador de hardware de código aberto inspirado no CPU-Z, projetado para recomendar a distribuição Linux ideal com base no desempenho e nas capacidades do seu hardware.
@@ -34,11 +34,16 @@ Se você está procurando uma distro leve para uma máquina antiga ou uma config
    ```
 
 2. **Instale as dependências**:
+
    No Windows (PowerShell):
    ```powershell
    python -m pip install -r backend/requirements.txt
    ```
-   No Linux/macOS:
+   No Debian/Ubuntu e distribuições linux modernas que seguem o padrão [PEP 668](https://peps.python.org/pep-0668).
+   ```bash
+   pip install --break-system-packages -r backend/requirements.txt
+   ```
+   Em outras distros Linux/macOS:
    ```bash
    pip install -r backend/requirements.txt
    ```
