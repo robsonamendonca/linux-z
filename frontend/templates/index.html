@@ -5,60 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ t.title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body data-theme="dark">
 
     <div class="cpuz-window">
-        <div class="cpuz-header">
-            <h1>Linux-Z v1.0</h1>
+        <header class="cpuz-header">
+            <h1>Linux-Z {{ version }}</h1>
             <div class="lang-switcher-inline">
-                <a href="/pt" class="lang-btn-small {{ 'active' if current_lang == 'pt' else '' }}">PT</a>
-                <a href="/en" class="lang-btn-small {{ 'active' if current_lang == 'en' else '' }}">EN</a>
-                <span style="margin-left:5px; cursor:pointer">&times;</span>
+                <a href="/pt" class="lang-btn-small {{ 'active' if current_lang == 'pt' else '' }}">PT-BR</a>
+                <a href="/en" class="lang-btn-small {{ 'active' if current_lang == 'en' else '' }}">EN-US</a>
             </div>
-        </div>
+        </header>
 
-        <div class="cpuz-tabs">
-            <div class="tab active" onclick="openTab(event, 'CPU')">CPU</div>
-            <div class="tab" onclick="openTab(event, 'Memory')">{{ t.memory }}</div>
-            <div class="tab" onclick="openTab(event, 'Graphics')">{{ t.graphics }}</div>
-            <div class="tab" onclick="openTab(event, 'Bench')">Score</div>
-            <div class="tab" onclick="openTab(event, 'Linux')">Linux</div>
-        </div>
+        <nav class="cpuz-tabs">
+            <div class="tab active" onclick="openTab(event, 'CPU')">{{ t.cpu_info }}</div>
+            <div class="tab" onclick="openTab(event, 'Memory')">{{ t.mem_stat }}</div>
+            <div class="tab" onclick="openTab(event, 'Graphics')">{{ t.gpu_strg }}</div>
+            <div class="tab" onclick="openTab(event, 'Bench')">{{ t.perf_score_tab }}</div>
+            <div class="tab" onclick="openTab(event, 'Linux')">{{ t.distro_os }}</div>
+        </nav>
 
-        <div class="cpuz-content">
+        <main class="cpuz-content">
             <!-- CPU TAB -->
             <div id="CPU" class="tab-pane active">
                 <fieldset>
-                    <legend>{{ t.processor }}</legend>
+                    <legend>> {{ t.processor }}</legend>
                     <div class="logo-section">
                         <div class="cpu-logo">🐧</div>
                         <div style="flex:1">
                             <div class="info-row">
-                                <div class="info-label">Name</div>
-                                <div class="info-value">{{ system.cpu.model }}</div>
+                                <span class="info-label">{{ t.model }}</span>
+                                <span class="info-value">{{ system.cpu.model }}</span>
                             </div>
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Clocks (Core #0)</legend>
+                    <legend>> {{ t.clock_freq }}</legend>
                     <div class="info-row">
-                        <div class="info-label">Frequency</div>
-                        <div class="info-value">{{ system.cpu.frequency or 'N/A' }} MHz</div>
+                        <span class="info-label">{{ t.clock_freq }}</span>
+                        <span class="info-value">{{ system.cpu.frequency or 'N/A' }} MHz</span>
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Selection</legend>
+                    <legend>> {{ t.alloc_res }}</legend>
                     <div class="info-row">
-                        <div class="info-label">Cores</div>
-                        <div class="info-value">{{ system.cpu.cores }}</div>
-                        <div class="info-label" style="text-align:right; padding-right:5px">Threads</div>
-                        <div class="info-value">{{ system.cpu.threads }}</div>
+                        <span class="info-label">{{ t.cores }}</span>
+                        <span class="info-value">{{ system.cpu.cores }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">{{ t.threads }}</span>
+                        <span class="info-value">{{ system.cpu.threads }}</span>
                     </div>
                 </fieldset>
             </div>
@@ -66,21 +71,21 @@
             <!-- MEMORY TAB -->
             <div id="Memory" class="tab-pane">
                 <fieldset>
-                    <legend>General</legend>
+                    <legend>> {{ t.sys_memory }}</legend>
                     <div class="info-row">
-                        <div class="info-label">Type</div>
-                        <div class="info-value">RAM</div>
+                        <span class="info-label">{{ t.total }}</span>
+                        <span class="info-value">DDR_RAM</span>
                     </div>
                     <div class="info-row">
-                        <div class="info-label">Size</div>
-                        <div class="info-value">{{ system.ram.total_gb }} GBytes</div>
+                        <span class="info-label">{{ t.capacity }}</span>
+                        <span class="info-value">{{ system.ram.total_gb }} GB</span>
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Timings</legend>
+                    <legend>> {{ t.available }}</legend>
                     <div class="info-row">
-                        <div class="info-label">{{ t.available }}</div>
-                        <div class="info-value">{{ system.ram.available_gb }} GBytes</div>
+                        <span class="info-label">{{ t.free_page }}</span>
+                        <span class="info-value">{{ system.ram.available_gb }} GB</span>
                     </div>
                 </fieldset>
             </div>
@@ -88,24 +93,24 @@
             <!-- GRAPHICS TAB -->
             <div id="Graphics" class="tab-pane">
                 <fieldset>
-                    <legend>Display Device Selection</legend>
+                    <legend>> {{ t.gpu_device }}</legend>
                     <div class="info-row">
-                        <div class="info-value">{{ system.gpu }}</div>
+                        <span class="info-value">{{ system.gpu }}</span>
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Storage</legend>
+                    <legend>> {{ t.storage_unit }}</legend>
                     <div class="info-row">
-                        <div class="info-label">Type</div>
-                        <div class="info-value">{{ 'SSD' if system.disk.is_ssd else 'HDD' }}</div>
+                        <span class="info-label">{{ t.drive_type }}</span>
+                        <span class="info-value">{{ 'SSD' if system.disk.is_ssd else 'HDD' }}</span>
                     </div>
                     <div class="info-row">
-                        <div class="info-label">{{ t.total }}</div>
-                        <div class="info-value">{{ system.disk.total_gb }} GBytes</div>
+                        <span class="info-label">{{ t.total_size }}</span>
+                        <span class="info-value">{{ system.disk.total_gb }} GB</span>
                     </div>
                     <div class="info-row">
-                        <div class="info-label">{{ t.free }}</div>
-                        <div class="info-value">{{ system.disk.free_gb }} GBytes</div>
+                        <span class="info-label">{{ t.free_space }}</span>
+                        <span class="info-value">{{ system.disk.free_gb }} GB</span>
                     </div>
                 </fieldset>
             </div>
@@ -113,17 +118,19 @@
             <!-- BENCH TAB -->
             <div id="Bench" class="tab-pane">
                 <fieldset>
-                    <legend>{{ t.performance_score }}</legend>
-                    <div style="text-align:center; padding: 20px;">
-                        <h2 style="font-size:48px">{{ score }}</h2>
-                        <p>{{ t.based_on }}</p>
+                    <legend>> {{ t.perf_index }}</legend>
+                    <div style="text-align:center; padding: 30px 0;">
+                        <h2
+                            style="font-size:64px; color: var(--accent-secondary); text-shadow: 0 0 20px rgba(0, 242, 255, 0.4);">
+                            {{ score }}</h2>
+                        <p style="color: var(--text-dim); font-size: 12px; margin-top: 10px;">{{ t.based_on }}</p>
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Details</legend>
+                    <legend>> {{ t.kernel_arch }}</legend>
                     <div class="info-row">
-                        <div class="info-label">{{ t.architecture }}</div>
-                        <div class="info-value">{{ system.arch }}</div>
+                        <span class="info-label">{{ t.architecture }}</span>
+                        <span class="info-value">{{ system.arch }}</span>
                     </div>
                 </fieldset>
             </div>
@@ -131,37 +138,43 @@
             <!-- LINUX TAB -->
             <div id="Linux" class="tab-pane">
                 <fieldset>
-                    <legend>{{ t.recommended }}</legend>
-                    <div style="padding: 10px;">
+                    <legend>> {{ t.recommended }}</legend>
+                    <div style="padding: 10px 0;">
                         {% for distro in distros %}
-                        <div class="info-row" style="margin-bottom:10px">
-                            <div class="info-value" style="font-weight:bold">🐧 {{ distro }}</div>
+                        <div class="info-row" style="margin-bottom:15px">
+                            <span class="info-value" style="color: var(--accent-primary)">> {{ distro }}</span>
                         </div>
                         {% endfor %}
                     </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button class="cpuz-btn" onclick="printReport()">/PRINT_REPORT</button>
+                    </div>
                 </fieldset>
             </div>
-        </div>
+        </main>
 
-        <div class="footer">
+        <footer class="footer">
             <div class="decoration-btns">
-                <div class="cpuz-btn" onclick="openAbout()">Sobre</div>
+                <button class="cpuz-btn" onclick="openAbout()">/ABOUT</button>
+                <button class="cpuz-btn"
+                    onclick="window.open('https://github.com/robsonamendonca/linux-z', '_blank')">/SOURCE</button>
             </div>
             <div class="decoration-btns">
-                <div class="cpuz-btn" onclick="toggleTheme()">Theme</div>
-                <div class="cpuz-btn">Close</div>
+                <button class="cpuz-btn" onclick="window.close()">/EXIT</button>
             </div>
-        </div>
+        </footer>
     </div>
 
     <!-- About Modal -->
     <div id="aboutModal" class="modal">
         <div class="modal-content">
-            <h2>Linux-Z v1.0</h2>
+            <h2>Linux-Z {{ version }}</h2>
             <p><strong>{{ t.subtitle }}</strong></p>
-            <p>Versão: 1.0.0-Stable</p>
-            <p>Autor: Robson A. Mendonça</p>
-            <div class="cpuz-btn" style="margin-top:15px; display:inline-block" onclick="closeAbout()">OK</div>
+            <p>BUILD_VERSION: {{ version }}-STABLE</p>
+            <p>OPERATOR: Robson A. Mendonça</p>
+            <p style="margin-top: 10px;"><a href="https://github.com/robsonamendonca/linux-z" target="_blank"
+                    style="color: var(--accent-secondary); text-decoration: none;">[GIT_REPOSITORY]</a></p>
+            <button class="cpuz-btn" style="margin-top:25px;" onclick="closeAbout()">TERMINATE</button>
         </div>
     </div>
 
@@ -170,23 +183,14 @@
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-pane");
             for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
             }
             tablinks = document.getElementsByClassName("tab");
             for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].classList.remove("active");
             }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        function toggleTheme() {
-            const body = document.body;
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
 
         function openAbout() {
@@ -195,6 +199,10 @@
 
         function closeAbout() {
             document.getElementById("aboutModal").style.display = "none";
+        }
+
+        function printReport() {
+            window.print();
         }
 
         // Close modal when clicking outside

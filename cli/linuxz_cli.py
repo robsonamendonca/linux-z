@@ -16,6 +16,7 @@ except ImportError:
 
 from analyzer import analyze_system
 from scorer import calculate_score, recommend_distro
+from app import get_latest_version
 
 def run_cli():
     # Set up argument parser
@@ -55,6 +56,24 @@ def run_cli():
 
     t = translations[args.lang]
     console = Console()
+    version = get_latest_version()
+
+    # Clear screen
+    console.clear()
+
+    # ASCII Logo
+    ascii_logo = f"""
+[bold green]
+ ██╗     ██╗███╗   ██╗██╗   ██╗██╗  ██╗      ███████╗
+ ██║     ██║████╗  ██║██║   ██║╚██╗██╔╝      ╚══███╔╝
+ ██║     ██║██╔██╗ ██║██║   ██║ ╚███╔╝         ███╔╝ 
+ ██║     ██║██║╚██╗██║██║   ██║ ██╔██╗        ███╔╝  
+ ███████╗██║██║ ╚████║╚██████╔╝██╔╝ ██╗      ███████╗
+ ╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝      ╚══════╝
+[/bold green]
+[bold cyan]Premium System Hardware Analyzer[/bold cyan] [dim]{version}[/dim]
+"""
+    console.print(ascii_logo)
     
     with console.status(f"[bold green]{t['status']}") as status:
         system = analyze_system()
