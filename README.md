@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-v0.13.0-blue)](https://github.com/robsonamendonca/linux-z/releases)
+[![Version](https://img.shields.io/badge/version-v0.14.0-blue)](https://github.com/robsonamendonca/linux-z/releases)
 # 🐧 Linux-Z
 
 **Linux-Z** é um analisador de hardware de código aberto inspirado no CPU-Z, projetado para recomendar a distribuição Linux ideal com base no desempenho e nas capacidades do seu hardware.
