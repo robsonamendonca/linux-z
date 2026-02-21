@@ -1,0 +1,6 @@
+{
+  "low": ["Lubuntu", "Linux Lite", "antiX"],
+  "mid": ["Linux Mint XFCE", "Ubuntu MATE"],
+  "high": ["Ubuntu", "Fedora Workstation", "Pop!_OS"],
+  "legacy_32bits": ["Debian 32-bit", "antiX 32-bit", "BunsenLabs Linux"]
+}
